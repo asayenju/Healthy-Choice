@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "fire
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from "@/config/firebaseConfig";
 
-const signUpWithEmail = async (email: string, password: string, displayName: string) => {
+export const signUpWithEmail = async (email: string, password: string, displayName: string) => {
     try {
         // 1. Create user in Firebase Auth
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -19,12 +19,12 @@ const signUpWithEmail = async (email: string, password: string, displayName: str
         console.log("User created & saved to Firestore:", user.uid);
         return user;
     } catch (error) {
-        console.error("Error during signup:", error);
+        console.log("Error during signup:", error);
         throw error
     }
 }
 
-const signInWithEmail = async (email: string, password: string) => {
+export const signInWithEmail = async (email: string, password: string) => {
     try {
         // 1. sign in with firebase auth
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -47,7 +47,7 @@ const signInWithEmail = async (email: string, password: string) => {
         return {user, userData};
         
     } catch (error) {
-        console.error("Sign-in Failed:", error);
+        console.log("Sign-in Failed:", error);
         throw error;
     }
 }
